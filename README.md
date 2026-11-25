@@ -1,14 +1,16 @@
-# 3D Website Demo — Fuffie Coffee
+# Fuffie — موقع محمصة قهوة (Demo)
 
-Scroll-driven cinematic coffee landing page in 4 stages:
+موقع عربي (RTL) لمحمصة قهوة تجريبية، فيه حكاية تفاعلية بالسكرول في 4 مشاهد، وبعدها صفحات المتجر.
 
-1. **Coffee** — giant glossy coffee bean floating over a premium grinder
-2. **The Split** — bean splits in two halves with cascading beans
-3. **Discovery** — beans fall into a clear glass filling with swirling coffee and crema
-4. **The Pour** — steel pitcher pours into a white cup with rosetta latte art, Fuffie coffee bags beside it
+- **الحكاية:** حبة البن فوق المطحنة ← انقسام الحبة ← القهوة في الكوب ← سكب الحليب والفنجان.
+- **قهوتنا:** 3 منتجات (خلطة البيت، محصول منفرد، اشتراك شهري).
+- **من الحبة للفنجان:** خطوات التحضير وأرقام سريعة.
+- **المنيو:** مشروبات ساخنة وباردة.
+- **اطلب / زورنا:** فورم طلب تجريبي (مش بيبعت فعليًا) وبيانات الزيارة.
 
-Built as a single self-contained `index.html` (photorealistic generated frames, scroll crossfade / Ken Burns / parallax, chapter navigation, replay). No build step — open `index.html` or deploy as a static site.
+## الملفات
+- `index.html`: الصفحة كلها (HTML + CSS + JS).
+- `img/`: الصور بصيغة WebP، وبتتحمّل كملفات منفصلة بدل ما تبقى جوه الـ HTML.
 
-## Deploy
-
-Static site: deploy the repo root on Vercel (Framework Preset: Other, no build command, output directory: root).
+## النشر
+موقع ثابت من غير build: على Vercel اختار Framework Preset: Other، والـ Output هو جذر المشروع.
