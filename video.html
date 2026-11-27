@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fuffie | حكاية فنجان في أربع لحظات</title>
+<meta name="description" content="محمصة Fuffie: حكاية القهوة من حبة البن حتى الفنجان. خلطات طازجة محمّصة على دفعات صغيرة، ومنيو مشروبات، واطلب قهوتك أونلاين.">
+<meta name="theme-color" content="#efe3cb">
+<meta property="og:title" content="Fuffie | حكاية فنجان في أربع لحظات">
+<meta property="og:description" content="من حبة البن إلى الفنجان: قهوة طازجة محمّصة بعناية.">
+<meta property="og:image" content="img/og.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232a180c'/%3E%3Cellipse cx='32' cy='32' rx='14' ry='19' fill='%23c98a4b' transform='rotate(-24 32 32)'/%3E%3Cpath d='M27 18c8 6 2 20 10 28' stroke='%232a180c' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="img/frame-1.webp" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#efe3cb; --bg-2:#f7efe0; --paper:#fbf6ec; --ink:#2a180c; --ink-soft:#4a2f18; --muted:#7a5a3a;
+  --accent:#a85f27; --accent-2:#c98a4b; --line:rgba(42,24,12,.14);
+  --glass:rgba(251,246,236,.78); --dark:#1c120b;
+  --head:"Reem Kufi", "IBM Plex Sans Arabic", serif;
+  --body:"IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --r:20px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.8 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ================= header ================= */
+.top{position:fixed;inset-inline:0;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:max(14px, env(safe-area-inset-top)) clamp(16px, 4vw, 48px) 14px;transition:background .35s, box-shadow .35s}
+.top.solid{background:rgba(247,239,224,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.logo{display:flex;flex-direction:column;align-items:flex-start;line-height:1;text-decoration:none}
+.logo b{font:800 22px/1 "Playfair Display", Georgia, serif;letter-spacing:.42em;direction:ltr}
+.logo small{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.06em}
+.nav{display:flex;gap:clamp(14px, 2.4vw, 30px);font-size:15px;font-weight:500}
+.nav a{text-decoration:none;color:var(--ink-soft);padding:6px 0;border-bottom:1.5px solid transparent;transition:border-color .2s, color .2s}
+.nav a:hover{color:var(--accent);border-color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 24px;border-radius:999px;border:1.5px solid var(--ink);
+  background:var(--ink);color:var(--paper);font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;transition:transform .2s, background .2s, color .2s}
+.btn:hover{background:var(--accent);border-color:var(--accent)}
+.btn:active{transform:scale(.97)}
+.btn--ghost{background:transparent;color:var(--ink)}
+.btn--ghost:hover{color:#fff}
+.btn--sm{min-height:40px;padding:0 18px;font-size:14px}
+@media (max-width: 860px){ .nav{display:none} }
+
+/* ================= story (scroll-driven) ================= */
+#stage{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--bg)}
+.frame{position:absolute;inset:0;opacity:0;will-change:opacity, transform}
+.frame img{width:100%;height:100%;object-fit:cover;object-position:50% 46%;user-select:none;-webkit-user-drag:none}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom, rgba(239,227,203,.75) 0, rgba(239,227,203,0) 140px),
+             radial-gradient(ellipse 95% 85% at 50% 48%, transparent 60%, rgba(84,46,14,.2) 100%)}
+#track{position:relative;z-index:2;height:800vh}
+#progress{position:fixed;top:0;inset-inline:0;height:3px;z-index:31;transform-origin:100% 50%;transform:scaleX(0);background:linear-gradient(270deg, var(--accent-2), var(--accent))}
+
+.chap{position:fixed;z-index:4;inset-inline-start:clamp(20px, 4vw, 64px);top:50%;width:min(26rem, calc(100vw - 40px));
+  padding:clamp(22px, 2.6vw, 34px);border-radius:24px;background:var(--glass);border:1px solid rgba(255,255,255,.6);
+  backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);box-shadow:0 30px 60px -30px rgba(42,24,12,.45);
+  opacity:0;visibility:hidden;will-change:opacity, transform}
+.chap .kick{margin:0 0 10px;font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.02em}
+.chap h1,.chap h2{margin:0;font-family:var(--head);font-weight:700;line-height:1.25;color:var(--ink)}
+.chap h1{font-size:clamp(40px, 5.4vw, 72px)}
+.chap h2{font-size:clamp(30px, 3.6vw, 48px)}
+.chap em{font-style:normal;color:var(--accent)}
+.chap p.sub{margin:14px 0 0;color:var(--ink-soft);font-size:clamp(15px, 1.25vw, 18px)}
+.chap .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chap .num{position:absolute;inset-inline-end:22px;top:14px;font:700 54px/1 "Playfair Display", serif;color:rgba(168,95,39,.18)}
+
+#dots{position:fixed;z-index:10;inset-inline-end:clamp(12px, 2vw, 28px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px;transition:opacity .3s}
+#dots button{display:flex;align-items:center;gap:10px;background:none;border:0;padding:6px;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500}
+#dots .d{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--accent);transition:transform .3s, background .3s;flex:none}
+#dots button.on{color:var(--ink)}
+#dots button.on .d{background:var(--accent);transform:scale(1.3)}
+#dots .l{opacity:0;transition:opacity .2s;white-space:nowrap;background:var(--glass);padding:2px 10px;border-radius:99px}
+#dots button:hover .l,#dots button:focus-visible .l{opacity:1}
+#hint{position:fixed;z-index:10;bottom:max(22px, env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:13px;font-weight:500;color:var(--ink-soft);pointer-events:none;transition:opacity .4s}
+#hint i{width:1.5px;height:34px;background:linear-gradient(var(--accent), transparent);animation:drip 2.2s ease-in-out infinite}
+@keyframes drip{0%{transform:scaleY(.3);transform-origin:top;opacity:.4}55%{transform:scaleY(1);opacity:1}100%{opacity:.2}}
+
+@media (max-width: 760px){
+  .chap{inset-inline:12px;width:auto;top:auto;bottom:max(14px, env(safe-area-inset-bottom));padding:20px 20px 22px;border-radius:20px}
+  .chap h1{font-size:40px}
+  .chap h2{font-size:28px}
+  .chap .num{font-size:40px}
+  #dots{top:auto;bottom:auto;top:96px;transform:none}
+  #dots .l{display:none}
+  #hint{display:none}
+  .frame[data-i="0"] img{object-position:50% 20%}
+  .frame[data-i="3"] img{object-position:50% 30%}
+}
+
+/* ================= content sections ================= */
+.after{position:relative;z-index:5;background:var(--bg-2)}
+.sec{padding:clamp(72px, 10vw, 130px) clamp(16px, 5vw, 64px)}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--accent);margin:0 0 12px}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:var(--accent)}
+.h{margin:0;font-family:var(--head);font-weight:700;font-size:clamp(32px, 4.4vw, 56px);line-height:1.25;text-wrap:balance}
+.h em{font-style:normal;color:var(--accent)}
+.lead{max-width:40rem;color:var(--ink-soft);margin:16px 0 0}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:clamp(36px, 5vw, 56px)}
+
+/* products */
+.products{display:grid;grid-template-columns:repeat(3, minmax(0, 1fr));gap:clamp(16px, 2vw, 28px)}
+.prod{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:26px;overflow:hidden;transition:transform .35s, box-shadow .35s}
+.prod:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(42,24,12,.4)}
+.prod__img{aspect-ratio:4/4.3;background:linear-gradient(160deg, #eadbc0, #d9c3a0);display:grid;place-items:end center;overflow:hidden;position:relative}
+.prod__img img{width:78%;height:92%;object-fit:cover;object-position:50% 30%;border-radius:18px 18px 0 0;box-shadow:0 20px 40px -20px rgba(42,24,12,.6);transition:transform .5s}
+.prod:hover .prod__img img{transform:scale(1.04)}
+.tag{position:absolute;top:16px;inset-inline-start:16px;background:var(--ink);color:var(--paper);font-size:12px;font-weight:600;padding:4px 12px;border-radius:99px}
+.prod__body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:6px;flex:1}
+.prod h3{margin:0;font:700 24px/1.3 var(--head)}
+.prod h3 small{display:block;font:600 12px/1.6 "Playfair Display", serif;letter-spacing:.18em;color:var(--muted);direction:ltr;text-align:right}
+.prod p{margin:4px 0 0;color:var(--ink-soft);font-size:15px}
+.notes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.notes span{font-size:12px;font-weight:500;padding:3px 10px;border-radius:99px;background:#f0e4cf;color:var(--ink-soft)}
+.prod__foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:16px}
+.price{font:700 22px/1 var(--head)}
+.price small{font:500 13px var(--body);color:var(--muted);margin-inline-start:4px}
+
+/* process */
+.dark{background:var(--dark);color:#f4e8d4}
+.dark .h,.dark .prod h3{color:#fbf3e4}
+.dark .lead{color:#cdb28a}
+.steps{display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:clamp(14px, 2vw, 24px);counter-reset:s}
+.step{position:relative}
+.step img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:22px;filter:saturate(.95)}
+.step b{position:absolute;top:12px;inset-inline-start:12px;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font:700 17px var(--head)}
+.step h3{margin:18px 0 6px;font:700 22px/1.3 var(--head);color:#fbf3e4}
+.step p{margin:0;color:#cdb28a;font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:clamp(48px, 6vw, 72px);padding-top:clamp(32px, 4vw, 48px);border-top:1px solid rgba(244,232,212,.14)}
+.stat strong{display:block;font:700 clamp(34px, 4vw, 52px)/1.1 var(--head);color:var(--accent-2)}
+.stat span{color:#cdb28a;font-size:15px}
+
+/* menu */
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px, 3vw, 40px)}
+.mcard{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:clamp(22px, 3vw, 36px)}
+.mcard h3{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:700 26px var(--head)}
+.mcard h3 i{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#f0e4cf;font-style:normal;font-size:22px}
+.mi{display:flex;align-items:baseline;gap:10px;padding:13px 0;border-bottom:1px dashed var(--line)}
+.mi:last-child{border-bottom:0}
+.mi div{flex:1;min-width:0}
+.mi b{font-weight:600}
+.mi small{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+.mi span{font:700 18px var(--head);white-space:nowrap}
+
+/* order */
+.order{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px, 3vw, 40px);align-items:stretch}
+.form{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:clamp(22px, 3vw, 36px);display:grid;gap:14px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fld{display:grid;gap:6px;font-size:14px;font-weight:600;color:var(--ink-soft)}
+.in{width:100%;min-height:48px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:#fff;outline:0;font-weight:400;color:var(--ink);transition:border-color .2s}
+.in:focus{border-color:var(--accent)}
+textarea.in{min-height:90px;resize:vertical}
+.note{font-size:13px;color:var(--muted);margin:0}
+.ok{display:none;padding:14px 16px;border-radius:14px;background:#e6f2e1;color:#235a1f;font-weight:500}
+.ok.on{display:block}
+.visit{position:relative;border-radius:26px;overflow:hidden;min-height:420px;color:#fbf3e4;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(22px, 3vw, 36px)}
+.visit img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.visit::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top, rgba(28,18,11,.92) 10%, rgba(28,18,11,.15) 70%)}
+.visit > *:not(img){position:relative;z-index:2}
+.visit h3{margin:0 0 12px;font:700 30px var(--head)}
+.visit ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px}
+.visit li{display:flex;gap:10px}
+.visit li b{min-width:76px;color:var(--accent-2);font-weight:600}
+
+/* footer */
+.foot{position:relative;z-index:5;background:var(--dark);color:#cdb28a;padding:48px clamp(16px, 5vw, 64px) max(28px, env(safe-area-inset-bottom));font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
+.foot .logo b{color:#fbf3e4}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--accent-2)}
+.foot p{width:100%;margin:12px 0 0;padding-top:18px;border-top:1px solid rgba(244,232,212,.12);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease, transform .8s ease}
+.rv.vis{opacity:1;transform:none}
+
+@media (max-width: 960px){
+  .products{grid-template-columns:1fr 1fr}
+  .products .prod:last-child{grid-column:1 / -1}
+  .steps{grid-template-columns:1fr 1fr}
+  .order{grid-template-columns:1fr}
+}
+@media (max-width: 640px){
+  body{font-size:16px}
+  .products,.menu{grid-template-columns:1fr}
+  .products .prod:last-child{grid-column:auto}
+  .stats{grid-template-columns:1fr;text-align:center}
+  .f2{grid-template-columns:1fr}
+  .visit{min-height:360px}
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  #hint i{animation:none}
+  .rv{opacity:1;transform:none;transition:none}
+}
+/* ---------- WebGL photo story (fluid transitions + depth) ---------- */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none}
+body.fx #stage{display:none!important}
+body:not(.fx) #fx{display:none}
+#vid{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none;background:var(--bg)}
+body.vid #stage{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="top" id="top">
+  <a class="logo" href="#" aria-label="Fuffie، العودة لأول الصفحة"><b>FUFFIE</b><small>محمصة قهوة متخصصة</small></a>
+  <nav class="nav" aria-label="القائمة الرئيسية">
+    <a href="#shop">قهوتنا</a>
+    <a href="#process">من الحبة للفنجان</a>
+    <a href="#menu">المنيو</a>
+    <a href="#order">زورنا</a>
+  </nav>
+  <a class="btn btn--sm" href="#order">اطلب قهوتك</a>
+</header>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ============ story ============ -->
+<div id="stage" aria-hidden="true">
+  <div class="frame" data-i="0"><img src="img/frame-1.webp" alt="" fetchpriority="high"></div>
+  <div class="frame" data-i="1"><img src="img/frame-2.webp" alt="" decoding="async"></div>
+  <div class="frame" data-i="2"><img src="img/frame-3.webp" alt="" decoding="async"></div>
+  <div class="frame" data-i="3"><img src="img/frame-4.webp" alt="" decoding="async"></div>
+</div>
+<canvas id="vid" aria-hidden="true"></canvas>
+<div id="veil" aria-hidden="true"></div>
+
+<main>
+  <section id="track" aria-label="حكاية فنجان Fuffie، تُروى بالسكرول"></section>
+
+  <section class="chap" id="c0" aria-labelledby="t0">
+    <p class="kick">محمصة Fuffie · محصول منفرد</p>
+    <h1 id="t0">حكاية <em>فنجان</em></h1>
+    <p class="sub">من حبة البن لحد الفنجان. انزل بالسكرول وشاهد الحكاية وهي تُحضَّر أمامك.</p>
+    <div class="cta"><a class="btn" href="#shop">تسوّق القهوة</a><a class="btn btn--ghost" href="#menu">شوف المنيو</a></div>
+  </section>
+  <section class="chap" id="c1" aria-labelledby="t1">
+    <span class="num" aria-hidden="true">01</span>
+    <p class="kick">الفصل الأول · الطحن</p>
+    <h2 id="t1">تدور المطحنة… <em>فيستيقظ</em> العطر</h2>
+    <p class="sub">حبات محمّصة طازجة تتحول لبن مطحون ناعم، في لحظتها وقبل التحضير مباشرة.</p>
+  </section>
+  <section class="chap" id="c2" aria-labelledby="t2">
+    <span class="num" aria-hidden="true">02</span>
+    <p class="kick">الفصل الثاني · الفنجان</p>
+    <h2 id="t2">قهوة داكنة… و<em>لمسة</em> حليب</h2>
+    <p class="sub">يُسكب الحليب على مهل فوق القهوة، وترتسم الوردة على وجه الفنجان.</p>
+  </section>
+  <section class="chap" id="c3" aria-labelledby="t3">
+    <span class="num" aria-hidden="true">03</span>
+    <p class="kick">الفصل الثالث · السكب</p>
+    <h2 id="t3">سكبة هادئة… ولمسة <em>فن</em></h2>
+    <p class="sub">خيط من الحليب يرسم وردة على وجه الفنجان، وكيس طازج من Fuffie ينتظرك لتأخذ الحكاية إلى بيتك.</p>
+    <div class="cta"><a class="btn" href="#shop">اختار قهوتك</a></div>
+  </section>
+
+  <nav id="dots" aria-label="فصول الحكاية">
+    <button type="button" data-p="0.01" class="on"><span class="d"></span><span class="l">البداية</span></button>
+    <button type="button" data-p="0.2"><span class="d"></span><span class="l">الطحن</span></button>
+    <button type="button" data-p="0.48"><span class="d"></span><span class="l">الفنجان</span></button>
+    <button type="button" data-p="0.85"><span class="d"></span><span class="l">السكب</span></button>
+  </nav>
+  <div id="hint" aria-hidden="true"><span>انزل لتحت</span><i></i></div>
+
+  <!-- ============ content ============ -->
+  <div class="after">
+    <section class="sec" id="shop" aria-labelledby="shopT">
+      <div class="wrap">
+        <div class="head rv">
+          <div>
+            <p class="eyebrow">قهوتنا</p>
+            <h2 class="h" id="shopT">خُد الحكاية <em>لبيتك</em></h2>
+            <p class="lead">بنحمّص على دفعات صغيرة كل أسبوع، وبنوصّل القهوة في خلال 48 ساعة من التحميص، علشان توصلك بكامل عطرها.</p>
+          </div>
+        </div>
+        <div class="products">
+          <article class="prod rv">
+            <div class="prod__img"><span class="tag">الأكثر طلبًا</span><img src="img/bag-house.webp" alt="كيس قهوة خلطة البيت" loading="lazy" width="510" height="770"></div>
+            <div class="prod__body">
+              <h3><small>HOUSE BLEND</small>خلطة البيت</h3>
+              <p>توازن ناعم بين الشوكولاتة والكراميل، مناسبة للإسبريسو والقهوة باللبن.</p>
+              <div class="notes"><span>شوكولاتة</span><span>كراميل</span><span>بندق</span></div>
+              <div class="prod__foot"><span class="price">420<small>ج.م · 250 جم</small></span><a class="btn btn--sm" href="#order" data-pick="خلطة البيت">اطلب</a></div>
+            </div>
+          </article>
+          <article class="prod rv">
+            <div class="prod__img"><span class="tag">محصول موسمي</span><img src="img/bag-origin.webp" alt="كيس قهوة محصول منفرد" loading="lazy" width="500" height="750"></div>
+            <div class="prod__body">
+              <h3><small>SINGLE ORIGIN</small>محصول منفرد</h3>
+              <p>نكهات فاكهية مشرقة بلمسة زهور، مثالية للتقطير اليدوي وV60.</p>
+              <div class="notes"><span>توت</span><span>ياسمين</span><span>حمضيات</span></div>
+              <div class="prod__foot"><span class="price">520<small>ج.م · 250 جم</small></span><a class="btn btn--sm" href="#order" data-pick="محصول منفرد">اطلب</a></div>
+            </div>
+          </article>
+          <article class="prod rv">
+            <div class="prod__img"><span class="tag">وفّر 15%</span><img src="img/bean.webp" alt="حبة بن محمّصة" loading="lazy" width="600" height="675" style="object-position:50% 40%"></div>
+            <div class="prod__body">
+              <h3><small>MONTHLY BOX</small>اشتراك شهري</h3>
+              <p>كيسين طازجين كل شهر من اختيار المحمّص، وبيوصلوك لحد باب البيت.</p>
+              <div class="notes"><span>توصيل مجاني</span><span>إلغاء في أي وقت</span></div>
+              <div class="prod__foot"><span class="price">780<small>ج.م / شهريًا</small></span><a class="btn btn--sm" href="#order" data-pick="اشتراك شهري">اشترك</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec dark" id="process" aria-labelledby="procT">
+      <div class="wrap">
+        <div class="head rv">
+          <div>
+            <p class="eyebrow">من الحبة للفنجان</p>
+            <h2 class="h" id="procT">أربع خطوات، <em>ولا خطوة</em> بنستعجل فيها</h2>
+            <p class="lead">كل فنجان بيعدي على نفس الرحلة اللي شفتها فوق، وبنهتم بكل مرحلة فيها.</p>
+          </div>
+        </div>
+        <div class="steps">
+          <div class="step rv"><img src="img/step-1.webp" alt="حبة بن فوق مطحنة" loading="lazy" width="520" height="520"><b>١</b><h3>الاختيار</h3><p>حبوب أرابيكا من مزارع مرتفعة، ومتفرزة باليد.</p></div>
+          <div class="step rv"><img src="img/step-2.webp" alt="حبوب بن تتساقط" loading="lazy" width="520" height="520"><b>٢</b><h3>التحميص</h3><p>دفعات صغيرة بدرجات تحميص مدروسة لكل محصول.</p></div>
+          <div class="step rv"><img src="img/step-3.webp" alt="قهوة في كوب زجاج" loading="lazy" width="520" height="520"><b>٣</b><h3>الاستخلاص</h3><p>طحن طازج قبل التحضير، ووصفة مظبوطة لكل طريقة.</p></div>
+          <div class="step rv"><img src="img/step-4.webp" alt="سكب الحليب على فنجان لاتيه" loading="lazy" width="520" height="520"><b>٤</b><h3>الفنجان</h3><p>ولمسة فن أخيرة قبل ما يوصلك.</p></div>
+        </div>
+        <div class="stats rv">
+          <div class="stat"><strong>48 ساعة</strong><span>من التحميص لحد باب البيت</span></div>
+          <div class="stat"><strong>100%</strong><span>حبوب أرابيكا مختارة</span></div>
+          <div class="stat"><strong>12</strong><span>مشروب على المنيو</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="menu" aria-labelledby="menuT">
+      <div class="wrap">
+        <div class="head rv">
+          <div>
+            <p class="eyebrow">المنيو</p>
+            <h2 class="h" id="menuT">اختار <em>مزاجك</em> النهارده</h2>
+          </div>
+        </div>
+        <div class="menu">
+          <div class="mcard rv">
+            <h3><i aria-hidden="true">☕</i>مشروبات ساخنة</h3>
+            <div class="mi"><div><b>إسبريسو</b><small>شوت مركّز من خلطة البيت</small></div><span>55 ج.م</span></div>
+            <div class="mi"><div><b>أمريكانو</b><small>إسبريسو مع ماية سخنة</small></div><span>65 ج.م</span></div>
+            <div class="mi"><div><b>كابتشينو</b><small>رغوة كثيفة وطبقة كاكاو</small></div><span>85 ج.م</span></div>
+            <div class="mi"><div><b>لاتيه</b><small>حليب ناعم ورسمة على الوش</small></div><span>90 ج.م</span></div>
+            <div class="mi"><div><b>فلات وايت</b><small>دبل شوت وحليب قليل</small></div><span>90 ج.م</span></div>
+            <div class="mi"><div><b>V60</b><small>تقطير يدوي من المحصول المنفرد</small></div><span>110 ج.م</span></div>
+          </div>
+          <div class="mcard rv">
+            <h3><i aria-hidden="true">🧊</i>مشروبات باردة</h3>
+            <div class="mi"><div><b>آيس لاتيه</b><small>إسبريسو وحليب على تلج</small></div><span>95 ج.م</span></div>
+            <div class="mi"><div><b>كولد برو</b><small>منقوع 18 ساعة، ناعم ومنعش</small></div><span>100 ج.م</span></div>
+            <div class="mi"><div><b>آيس موكا</b><small>شوكولاتة داكنة وإسبريسو</small></div><span>110 ج.م</span></div>
+            <div class="mi"><div><b>فرابيه كراميل</b><small>مضروب بالتلج وصوص الكراميل</small></div><span>115 ج.م</span></div>
+            <div class="mi"><div><b>إسبريسو تونيك</b><small>تونيك فوار وشوت إسبريسو</small></div><span>105 ج.م</span></div>
+            <div class="mi"><div><b>شوكولاتة باردة</b><small>للي مش بيشرب قهوة</small></div><span>85 ج.م</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="order" aria-labelledby="orderT" style="padding-top:0">
+      <div class="wrap">
+        <div class="head rv">
+          <div>
+            <p class="eyebrow">اطلب أو زورنا</p>
+            <h2 class="h" id="orderT">قهوتك <em>جاهزة</em> لما تكون جاهز</h2>
+          </div>
+        </div>
+        <div class="order">
+          <form class="form rv" id="orderForm" novalidate>
+            <div class="f2">
+              <label class="fld">الاسم<input class="in" name="name" autocomplete="name" required placeholder="اسمك"></label>
+              <label class="fld">رقم الموبايل<input class="in" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required placeholder="01xxxxxxxxx"></label>
+            </div>
+            <div class="f2">
+              <label class="fld">المنتج
+                <select class="in" name="product" id="product">
+                  <option>خلطة البيت</option><option>محصول منفرد</option><option>اشتراك شهري</option>
+                </select>
+              </label>
+              <label class="fld">الطحنة
+                <select class="in" name="grind">
+                  <option>حبوب كاملة</option><option>إسبريسو</option><option>فلتر / V60</option><option>فرنساوي</option>
+                </select>
+              </label>
+            </div>
+            <label class="fld">العنوان<textarea class="in" name="address" autocomplete="street-address" placeholder="المنطقة، الشارع، رقم العمارة"></textarea></label>
+            <button class="btn" type="submit">أكّد الطلب</button>
+            <p class="ok" id="ok" role="status"></p>
+            <p class="note">ده موقع تجريبي، والطلب مش بيتبعت فعليًا.</p>
+          </form>
+          <div class="visit rv">
+            <img src="img/frame-4.webp" alt="" loading="lazy">
+            <h3>زورنا في المحمصة</h3>
+            <ul>
+              <li><b>المواعيد</b>يوميًا من 8 الصبح لـ 12 بالليل</li>
+              <li><b>التوصيل</b>لكل مناطق القاهرة والجيزة</li>
+              <li><b>الدفع</b>كاش أو كارت عند الاستلام</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="#"><b>FUFFIE</b><small>محمصة قهوة متخصصة</small></a>
+    <nav aria-label="روابط الفوتر"><a href="#shop">قهوتنا</a><a href="#process">من الحبة للفنجان</a><a href="#menu">المنيو</a><a href="#order">اطلب</a><a href="#" id="again">↺ شوف الحكاية تاني</a></nav>
+    <p><span>© 2026 Fuffie</span><span>موقع تجريبي (Demo)</span></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var frames = [].slice.call(document.querySelectorAll(".frame"));
+  var track = document.getElementById("track"), stage = document.getElementById("stage"), veil = document.getElementById("veil");
+  var bar = document.getElementById("progress"), hint = document.getElementById("hint"), dots = document.getElementById("dots");
+  var top = document.getElementById("top");
+  var dotBtns = [].slice.call(dots.querySelectorAll("button"));
+  // each chapter card: fade in a→b, hold, fade out c→d (story progress 0..1)
+  var chaps = [
+    { el: document.getElementById("c0"), a: -1, b: 0, c: 0.07, d: 0.11 },
+    { el: document.getElementById("c1"), a: 0.13, b: 0.17, c: 0.29, d: 0.33 },
+    { el: document.getElementById("c2"), a: 0.38, b: 0.42, c: 0.56, d: 0.6 },
+    { el: document.getElementById("c3"), a: 0.7, b: 0.75, c: 1.2, d: 1.3 }
+  ];
+  var dotAt = [0, 0.13, 0.38, 0.68];
+
+  function clamp(x){ return Math.min(1, Math.max(0, x)); }
+  function seg(p, a, b){ return clamp((p - a) / (b - a)); }
+  function ease(x){ return x * x * (3 - 2 * x); }
+  function lerp(a, b, t){ return a + (b - a) * t; }
+  function storyLen(){ return Math.max(1, track.offsetHeight - innerHeight); }
+  function raw(){ return clamp(scrollY / storyLen()); }
+
+  dotBtns.forEach(function(b){
+    b.addEventListener("click", function(){ scrollTo({ top: parseFloat(b.dataset.p) * storyLen(), behavior: reduce ? "auto" : "smooth" }); });
+  });
+  document.getElementById("again").addEventListener("click", function(e){ e.preventDefault(); scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
+
+  /* each frame owns a quarter; the crossfade is short so two photos never sit on top of each other for long */
+  function frameState(p, i){
+    var s = i * 0.25;
+    var o = i === 0 ? 1 : ease(seg(p, s - 0.035, s + 0.035));
+    var local = seg(p, s - 0.04, s + 0.29);
+    return { o: o, sc: lerp(1.03, 1.12, ease(local)), ty: lerp(1.4, -1.4, ease(local)) };
+  }
+  function render(p){
+    window.__storyP = p;
+    for (var i = 0; i < frames.length && !window.__fx; i++){
+      var f = frameState(p, i), fr = frames[i];
+      // hide a frame once the next one fully covers it
+      var covered = i < frames.length - 1 && frameState(p, i + 1).o >= 0.999;
+      fr.style.opacity = f.o.toFixed(3);
+      fr.style.transform = "scale(" + f.sc.toFixed(4) + ") translateY(" + f.ty.toFixed(2) + "%)";
+      fr.style.zIndex = i;
+      fr.style.visibility = (f.o <= 0.001 || covered) ? "hidden" : "visible";
+    }
+    chaps.forEach(function(c){
+      var o = Math.min(seg(p, c.a, c.b), 1 - seg(p, c.c, c.d));
+      c.el.style.opacity = o.toFixed(3);
+      c.el.style.visibility = o <= 0.001 ? "hidden" : "visible";
+      var mob = innerWidth <= 760;
+      c.el.style.transform = mob ? "translateY(" + ((1 - o) * 24).toFixed(1) + "px)" : "translateY(calc(-50% + " + ((1 - o) * 24).toFixed(1) + "px))";
+    });
+    bar.style.transform = "scaleX(" + p.toFixed(4) + ")";
+    hint.style.opacity = p > 0.02 ? "0" : "1";
+    var act = 0; for (var k = 0; k < dotAt.length; k++) if (p >= dotAt[k] - 0.02) act = k;
+    dotBtns.forEach(function(b, bi){ b.classList.toggle("on", bi === act); });
+  }
+  function chrome(){
+    var past = scrollY > storyLen() + innerHeight * 0.3;
+    dots.style.opacity = scrollY > storyLen() - innerHeight * 0.2 ? "0" : "1";
+    dots.style.pointerEvents = dots.style.opacity === "0" ? "none" : "auto";
+    window.__past = past;
+    stage.style.display = veil.style.display = past ? "none" : "";
+    chaps.forEach(function(c){ if (past) c.el.style.visibility = "hidden"; });
+    top.classList.toggle("solid", scrollY > storyLen() - 40);
+  }
+
+  var shown = raw(), target = shown;
+  render(shown); chrome();
+  (function tick(){
+    target = raw();
+    if (reduce) shown = target; else { shown += (target - shown) * 0.09; if (Math.abs(target - shown) < 0.0004) shown = target; }
+    render(shown); chrome();
+    requestAnimationFrame(tick);
+  })();
+
+  /* reveal on scroll */
+  var rvs = [].slice.call(document.querySelectorAll(".rv"));
+  if ("IntersectionObserver" in window && !reduce){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("vis"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+    rvs.forEach(function(el){ io.observe(el); });
+  } else rvs.forEach(function(el){ el.classList.add("vis"); });
+
+  /* product buttons preselect the order form */
+  document.querySelectorAll("[data-pick]").forEach(function(a){
+    a.addEventListener("click", function(){ document.getElementById("product").value = a.dataset.pick; });
+  });
+  var form = document.getElementById("orderForm"), ok = document.getElementById("ok");
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var F = form.elements, name = F.namedItem("name").value.trim(), phone = F.namedItem("phone").value.replace(/\s/g, "");
+    if (!name){ F.namedItem("name").focus(); ok.textContent = "اكتب اسمك الأول."; ok.className = "ok on"; ok.style.background = "#f8e3dc"; ok.style.color = "#8a2f12"; return; }
+    if (!/^\+?\d{10,14}$/.test(phone)){ F.namedItem("phone").focus(); ok.textContent = "اكتب رقم موبايل صحيح."; ok.className = "ok on"; ok.style.background = "#f8e3dc"; ok.style.color = "#8a2f12"; return; }
+    ok.style.background = ""; ok.style.color = "";
+    ok.textContent = "شكرًا يا " + name + "! استلمنا طلب «" + F.namedItem("product").value + "»، وهنكلمك على " + phone + " نأكد معاك.";
+    ok.className = "ok on"; form.reset();
+  });
+})();
+</script>
+<script src="vid.js" defer></script>
+</body>
+</html>
